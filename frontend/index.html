@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benin API - Administration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇧🇯 Administration Bénin API</h1>
+            <nav>
+                <button class="nav-btn active" data-section="departements">Départements</button>
+                <button class="nav-btn" data-section="communes">Communes</button>
+                <button class="nav-btn" data-section="villes">Villes/Arrondissements</button>
+            </nav>
+        </header>
+
+        <!-- Section Départements -->
+        <section id="departements" class="section active">
+            <div class="section-header">
+                <h2>Départements</h2>
+                <button class="btn-primary" onclick="openModal('departement')">+ Ajouter</button>
+            </div>
+            <div class="table-container">
+                <table id="departementsTable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date création</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section Communes -->
+        <section id="communes" class="section">
+            <div class="section-header">
+                <h2>Communes</h2>
+                <button class="btn-primary" onclick="openModal('commune')">+ Ajouter</button>
+            </div>
+            <div class="table-container">
+                <table id="communesTable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Département</th>
+                            <th>Code</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section Villes/Arrondissements -->
+        <section id="villes" class="section">
+            <div class="section-header">
+                <h2>Villes/Arrondissements</h2>
+                <button class="btn-primary" onclick="openModal('ville')">+ Ajouter</button>
+            </div>
+            <div class="table-container">
+                <table id="villesTable">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Commune</th>
+                            <th>Département</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle">Ajouter</h3>
+            <form id="modalForm">
+                <div id="formFields"></div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="closeModal()">Annuler</button>
+                    <button type="submit" class="btn-primary">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

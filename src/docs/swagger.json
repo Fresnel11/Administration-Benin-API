@@ -1,0 +1,677 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Benin API",
+    "description": "API pour gérer les départements, communes, villes et quartiers du Bénin",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Serveur de développement"
+    }
+  ],
+  "paths": {
+    "/api/departements": {
+      "get": {
+        "summary": "Récupérer tous les départements",
+        "tags": ["Départements"],
+        "responses": {
+          "200": {
+            "description": "Liste des départements",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Departement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer un nouveau département",
+        "tags": ["Départements"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Atlantique"
+                  }
+                },
+                "required": ["nom"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Département créé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Departement"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erreur de validation"
+          }
+        }
+      }
+    },
+    "/api/departements/{id}": {
+      "get": {
+        "summary": "Récupérer un département par ID",
+        "tags": ["Départements"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Département trouvé",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Departement"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Département non trouvé"
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour un département",
+        "tags": ["Départements"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Atlantique"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Département mis à jour",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Departement"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Département non trouvé"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un département",
+        "tags": ["Départements"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Département supprimé"
+          },
+          "404": {
+            "description": "Département non trouvé"
+          }
+        }
+      }
+    },
+    "/api/communes": {
+      "get": {
+        "summary": "Récupérer toutes les communes",
+        "tags": ["Communes"],
+        "responses": {
+          "200": {
+            "description": "Liste des communes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer une nouvelle commune",
+        "tags": ["Communes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Cotonou"
+                  },
+                  "departementId": {
+                    "type": "string",
+                    "example": "64a1b2c3d4e5f6789012345"
+                  },
+                  "code": {
+                    "type": "string",
+                    "example": "COT"
+                  }
+                },
+                "required": ["nom", "departementId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Commune créée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Commune"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erreur de validation"
+          }
+        }
+      }
+    },
+    "/api/communes/{id}": {
+      "get": {
+        "summary": "Récupérer une commune par ID",
+        "tags": ["Communes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Commune trouvée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Commune"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Commune non trouvée"
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour une commune",
+        "tags": ["Communes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Cotonou"
+                  },
+                  "departementId": {
+                    "type": "string",
+                    "example": "64a1b2c3d4e5f6789012345"
+                  },
+                  "code": {
+                    "type": "string",
+                    "example": "COT"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Commune mise à jour",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Commune"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Commune non trouvée"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer une commune",
+        "tags": ["Communes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Commune supprimée"
+          },
+          "404": {
+            "description": "Commune non trouvée"
+          }
+        }
+      }
+    },
+    "/api/communes/departement/{departementId}": {
+      "get": {
+        "summary": "Récupérer les communes d'un département",
+        "tags": ["Communes"],
+        "parameters": [
+          {
+            "name": "departementId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des communes du département",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/villes": {
+      "get": {
+        "summary": "Récupérer toutes les villes",
+        "tags": ["Villes"],
+        "responses": {
+          "200": {
+            "description": "Liste des villes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ville"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Créer une nouvelle ville",
+        "tags": ["Villes"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Akpakpa"
+                  },
+                  "communeId": {
+                    "type": "string",
+                    "example": "64a1b2c3d4e5f6789012346"
+                  }
+                },
+                "required": ["nom", "communeId"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Ville créée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ville"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erreur de validation"
+          }
+        }
+      }
+    },
+    "/api/villes/{id}": {
+      "get": {
+        "summary": "Récupérer une ville par ID",
+        "tags": ["Villes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ville trouvée",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ville"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ville non trouvée"
+          }
+        }
+      },
+      "put": {
+        "summary": "Mettre à jour une ville",
+        "tags": ["Villes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nom": {
+                    "type": "string",
+                    "example": "Akpakpa"
+                  },
+                  "communeId": {
+                    "type": "string",
+                    "example": "64a1b2c3d4e5f6789012346"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ville mise à jour",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ville"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Ville non trouvée"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer une ville",
+        "tags": ["Villes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ville supprimée"
+          },
+          "404": {
+            "description": "Ville non trouvée"
+          }
+        }
+      }
+    },
+    "/api/villes/commune/{communeId}": {
+      "get": {
+        "summary": "Récupérer les villes d'une commune",
+        "tags": ["Villes"],
+        "parameters": [
+          {
+            "name": "communeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des villes de la commune",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ville"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Departement": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64a1b2c3d4e5f6789012345"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Atlantique"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Commune": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64a1b2c3d4e5f6789012346"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Cotonou"
+          },
+          "departementId": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "64a1b2c3d4e5f6789012345"
+              },
+              "nom": {
+                "type": "string",
+                "example": "Littoral"
+              }
+            }
+          },
+          "code": {
+            "type": "string",
+            "example": "COT"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Ville": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64a1b2c3d4e5f6789012347"
+          },
+          "nom": {
+            "type": "string",
+            "example": "Akpakpa"
+          },
+          "communeId": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "64a1b2c3d4e5f6789012346"
+              },
+              "nom": {
+                "type": "string",
+                "example": "Cotonou"
+              },
+              "departementId": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "64a1b2c3d4e5f6789012345"
+                  },
+                  "nom": {
+                    "type": "string",
+                    "example": "Littoral"
+                  }
+                }
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
